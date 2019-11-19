@@ -1,48 +1,48 @@
 import React from 'react';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Link from '@material-ui/core/Link';
 // Components
-
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    margin: '75px auto'
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
   },
-  gridItem: {
-    padding: theme.spacing(2)
+  gridList: {
+    width: 500,
+    height: 450,
+    transform: 'translateZ(0)',
+  },
+  titleBar: {
+    background: 'rgba(255, 255, 255, 0.7)',
+    color: '#5B7431'
   }
-  }));
+}));
 
 export const HomePage = props => { 
   const classes = useStyles();
 
   return (
-    <>
-      <div className={classes.content}>
-        <Container className={classes.header}>
-          <Typography className={classes.heading} variant="display3" align="left" color="textSecondary" component="h1">
-            All Lists
-          </Typography>
-        </Container>
-
-        <Grid container spacing={4} justify="center">      
-          {props.lists && props.lists.map(item => {
-            return (
-              <Grid item className={classes.gridItem} s>
-                <BucketListCard 
-                  key={item.id}
-                  {...item}
-                  />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </div>
-      <Footer />
-    </>
+    <div className={classes.root}>
+      <GridList cellHeight={200} spacing={1} className={classes.gridList}>
+        {tileData.map(tile => (
+          <GridListTile key={tile.img}>
+            <Link href="#" >
+              <img src={tile.img} alt={tile.title} />
+              <GridListTileBar className={classes.titleBar}
+                title={tile.title}
+              />
+            </Link>
+          </GridListTile>
+        ))}
+      </GridList>
+    </div>
   );
 }
